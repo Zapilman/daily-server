@@ -30,10 +30,10 @@ export class AuthController {
   @UsePipes(new ValidationPipe())
   @Post('login')
   async login(@Body() dto: CreateUserDto) {
-    const { email } = await this.authService.validateUser(
+    const { pass } = await this.authService.validateUser(
       dto.email,
       dto.password,
     );
-    return this.authService.login(email);
+    return this.authService.login(pass);
   }
 }

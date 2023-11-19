@@ -7,7 +7,7 @@ export class OpenAiService {
   private readonly openAI: OpenAI;
   constructor(private readonly configService: ConfigService) {
     this.openAI = new OpenAI({
-      apiKey: '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',
+      apiKey: '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',
       organization: 'org-Ca6fWxr7nnHTPFx8PRfOdnkc',
     });
   }
@@ -20,7 +20,7 @@ export class OpenAiService {
       });
       return chatCompletion.choices[0].message.content;
     } catch (e) {
-      throw new HttpException('AI exception', 404);
+      throw new HttpException(`AI exception: ${e}`, 404);
     }
   }
 }

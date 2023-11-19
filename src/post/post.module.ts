@@ -3,6 +3,7 @@ import { PostController } from './post.controller';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { PostModel } from './post.model';
 import { PostService } from './post.service';
+import { FilesModule } from 'src/files/files.module';
 
 @Module({
   controllers: [PostController],
@@ -17,6 +18,7 @@ import { PostService } from './post.service';
         },
       },
     ]),
+    FilesModule,
   ],
 })
 export class PostModule {}

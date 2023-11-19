@@ -23,11 +23,11 @@ export class ReviewService {
   }
 
   async createWithAI(postId: string) {
-    const posts = await this.postService.findPostById(postId);
-    if (!posts.length) {
+    const post = await this.postService.findPostById(postId);
+    if (!post) {
       throw new HttpException('POST NO FOUND', 403);
     }
-    const message = `Придумай небольшой коментарий к этому тексту: ${posts[0].text}`;
+    const message = `Придумай небольшой коментарий к этому тексту: ${post.text}`;
     const commentText = await this.openAI.getAIAnswer(message);
     return this.create({ text: commentText || 'good post', postId });
   }
@@ -37,6 +37,11 @@ export class ReviewService {
     if (!post) {
       throw new HttpException('POST NO FOUND', 403);
     }
+    console.log(
+      '🚀 ~ file: review.service.ts:38 ~ ReviewService ~ createForRandomWithAI ~ post:',
+      post,
+    );
+
     return this.createWithAI(String(post._id));
   }
 

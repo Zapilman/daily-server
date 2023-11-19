@@ -11,3 +11,14 @@ services:
       - 27017:27017
     volumes:
       - ./mongo-data:/data/db
+
+  server:
+    image: daily-server-dev:latest
+    container_name: daily-server-dev
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - ./.env:/usr/src/app/.env
+    depends_on:
+      - mongo

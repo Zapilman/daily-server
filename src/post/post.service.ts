@@ -27,8 +27,8 @@ export class PostService {
     return this.postModel.findOne().skip(random).exec();
   }
 
-  async findPostById(id: string): Promise<PostModel[]> {
-    return this.postModel
+  async findPostById(id: string): Promise<PostModel | null> {
+    const posts: PostModel[] = await this.postModel
       .aggregate([
         {
           $match: {
@@ -49,7 +49,8 @@ export class PostService {
           },
         },
       ])
-      .exec() as Promise<PostModel[]>;
+      .exec();
+    return posts.length > 0 ? posts[0] : null;
   }
 
   async getAllPosts() {

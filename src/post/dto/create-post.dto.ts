@@ -1,8 +1,11 @@
-import { MaxLength, isString } from 'class-validator';
+import { MaxLength, IsString } from 'class-validator';
+import { FileResponse } from 'src/files/dto/file.response';
 
 export class CreatePostDto {
+  @IsString()
   title: string;
-  mainPhoto: string;
+
+  @IsString()
   text: string;
 
   @MaxLength(20)
@@ -12,4 +15,6 @@ export class CreatePostDto {
     each: true,
   })
   tags: string[];
+
+  mainPhoto?: FileResponse;
 }

@@ -31,7 +31,7 @@ export class AuthService {
   async validateUser(
     email: string,
     password: string,
-  ): Promise<Pick<UserModel, 'email'>> {
+  ): Promise<Record<string, string>> {
     const user = await this.findUser(email);
     if (!user) {
       throw new UnauthorizedException(UserErrorMessages.USER_NOT_FOUND);
@@ -41,11 +41,11 @@ export class AuthService {
       throw new UnauthorizedException(UserErrorMessages.WRONG_USER_PASSWORD);
     }
 
-    return { email: user.email };
+    return { pass: user.passwordHash };
   }
 
-  async login(email: string) {
-    const payload = { email };
+  async login(pass: string) {
+    const payload = { pass };
     return {
       access_token: await this.jwtService.signAsync(payload),
     };
