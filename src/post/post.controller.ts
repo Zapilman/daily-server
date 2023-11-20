@@ -41,7 +41,7 @@ export class PostController {
     @UserEmail() email: string,
   ) {
     log(file);
-    const mainPhoto = await this.fileService.uploadFile(file);
+    const mainPhoto = file ? await this.fileService.uploadFile(file) : [];
     return this.postService.create({ ...dto, mainPhoto: mainPhoto[0] });
   }
 

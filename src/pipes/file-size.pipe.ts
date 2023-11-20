@@ -11,7 +11,7 @@ export class FileSizeValidationPipe implements PipeTransform {
   transform(file: Express.Multer.File, metadata: ArgumentMetadata) {
     const oneKb = 1024;
     const oneMb = oneKb * 1024;
-    if (file.size > oneMb * 6) {
+    if (file && file.size > oneMb * 6) {
       throw new HttpException('File too big', HttpStatus.PAYLOAD_TOO_LARGE);
     }
 
