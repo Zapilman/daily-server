@@ -46,6 +46,12 @@ export class PostController {
   }
 
   @HttpCode(200)
+  @Get('test')
+  async test() {
+    return 'hello, this is test';
+  }
+
+  @HttpCode(200)
   @Get(':id')
   async get(@Param('id', IdValidationPipe) id: string) {
     return this.postService.findPostById(id);
