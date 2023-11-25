@@ -11,14 +11,26 @@ services:
       - 27017:27017
     volumes:
       - ./mongo-data:/data/db
+    networks:
+      - daily-app
 
   server:
     image: daily-server-dev:latest
-    container_name: daily-server-dev
+    container_name: server
     restart: always
     ports:
       - 8080:8080
+    networks:
+      - daily-app
     volumes:
       - ./.env:/usr/src/app/.env
+      - ./uploads:/usr/src/app/uploads
     depends_on:
       - mongo
+
+networks:
+  daily-app:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
